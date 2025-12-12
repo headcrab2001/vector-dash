@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Dash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="skins.css">
+</head>
+
+<body>
+    <div id="main-container">
+        <div id="game-container-1" class="game-view">
+            <div id="floor-1" class="floor"></div>
+            <div id="ceiling-1" class="ceiling"></div>
+            <div id="player-1" class="player-sphere"></div>
+            <div id="score-display-1" class="score-display">P1 Score: 0 | Coins: 0 (E: Boost)</div>
+        </div>
+
+        <div id="game-container-2" class="game-view" style="display: none;">
+            <div id="floor-2" class="floor"></div>
+            <div id="ceiling-2" class="ceiling"></div>
+            <div id="player-2" class="player-sphere"></div>
+            <div id="score-display-2" class="score-display">P2 Score: 0 | Coins: 0 (I: Boost)</div>
+        </div>
+
+        <div id="start-screen" class="game-overlay">
+            <h1>VECTOR DASH</h1>
+            <p>Select your game mode:</p>
+            <p id="high-score-display"
+                style="font-family: 'Orbitron', sans-serif; color: #ffcc00; font-size: 1.2em; margin-top: -20px; margin-bottom: 30px;">
+                High Score: 0</p>
+
+            <div id="mode-selector">
+                <button id="single-player-button" class="mode-button">Single Player</button>
+                <button id="two-player-button" class="mode-button">Two Players (Split)</button>
+            </div>
+
+            <div id="settings-area" style="display: none;">
+                <h2>Game Settings</h2>
+
+                <h3>Choose Your Skin</h3>
+                <div id="skin-selector">
+                    <div class="skin-option skin-default selected" data-skin="skin-default" title="Default Red"></div>
+                    <div class="skin-option skin-neon-blue" data-skin="skin-neon-blue" title="Neon Blue"></div>
+                    <div class="skin-option skin-gold" data-skin="skin-gold" title="Gold"></div>
+                    <div class="skin-option skin-matrix" data-skin="skin-matrix" title="Matrix"></div>
+                    <div class="skin-option skin-plasma" data-skin="skin-plasma" title="Plasma"></div>
+                </div>
+
+                <div id="control-settings">
+                    <p>Player 1 Flip Key:
+                        <input type="text" id="p1-flip-key-input" value="Space" readonly class="key-input">
+                    </p>
+                    <p>Player 1 Boost Key (5 Coins):
+                        <input type="text" id="p1-boost-key-input" value="KeyE" readonly class="key-input">
+                    </p>
+                    <p class="p2-settings">Player 2 Flip Key:
+                        <input type="text" id="p2-flip-key-input" value="ShiftLeft" readonly class="key-input">
+                    </p>
+                    <p class="p2-settings">Player 2 Boost Key (5 Coins):
+                        <input type="text" id="p2-boost-key-input" value="KeyI" readonly class="key-input">
+                    </p>
+                </div>
+
+                <div id="speed-selector">
+                    <label for="base-speed-slider">Choose Base Speed (Applies to both):</label>
+                    <input type="range" id="base-speed-slider" min="3" max="8" value="5" step="0.5">
+                    <span id="speed-value">Speed: 5.0</span>
+                </div>
+
+                <button id="fullscreen-button" class="settings-button">Toggle Fullscreen</button>
+
+                <button id="start-button" style="margin-top: 20px;">START GAME</button>
+            </div>
+        </div>
+        <div id="restart-screen" class="game-overlay" style="display: none;">
+            <h2>GAME OVER</h2>
+            <p id="final-score"></p>
+            <button id="restart-button">Restart</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>

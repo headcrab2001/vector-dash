@@ -1,0 +1,54 @@
+/* --- Player Skins --- */
+.skin-default {
+    background: radial-gradient(circle at 30% 30%, #ff5555, #990000);
+    box-shadow: 0 0 10px #ff0000;
+}
+
+.skin-neon-blue {
+    background: radial-gradient(circle at 30% 30%, #00ffff, #0055ff);
+    box-shadow: 0 0 15px #00ffff;
+}
+
+.skin-gold {
+    background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+    box-shadow: 0 0 15px #ffd700;
+    border: 1px solid #fff;
+}
+
+.skin-matrix {
+    background: #000;
+    border: 2px solid #00ff00;
+    box-shadow: inset 0 0 5px #00ff00, 0 0 5px #00ff00;
+}
+
+.skin-plasma {
+    background: radial-gradient(circle, #ff00cc, #330033);
+    box-shadow: 0 0 15px #ff00cc;
+}
+
+/* Selector UI Styles */
+#skin-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.skin-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, border 0.2s;
+    border: 2px solid transparent;
+}
+
+.skin-option:hover {
+    transform: scale(1.2);
+}
+
+.skin-option.selected {
+    border: 3px solid #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #ffffff;
+}

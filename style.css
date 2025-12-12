@@ -1,0 +1,380 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0b0b0b;
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Exo 2', sans-serif;
+    color: #fff;
+}
+
+/* Main container to hold all views */
+#main-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Style for the separator line */
+#game-container-1:not(.single-player-mode) {
+    border-right: 3px solid #ffffff;
+}
+
+/* Common styling for both player views */
+.game-view {
+    position: relative;
+    height: 100%;
+    width: 100vw;
+    transition: background-color 0.75s;
+    overflow: hidden;
+}
+
+/* Player Spheres */
+.player-sphere {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    left: 100px;
+    bottom: 35px;
+    transition: transform 0.1s;
+    z-index: 10;
+}
+
+#player-2 {
+    background-color: #00ccff;
+}
+
+/* Boost Visual Effect (NEW) */
+.boosting {
+    /* Change background color to gold/white while boosting */
+    background-color: #ffffff !important;
+    /* Add a pulsing glow */
+    box-shadow: 0 0 10px 5px rgba(255, 255, 0, 0.8),
+        0 0 20px 10px rgba(255, 100, 0, 0.5);
+    /* Ensure the transition on the box-shadow is smooth */
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+
+/* Coin Style */
+.coin {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ffcc00;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.8);
+    z-index: 5;
+}
+
+/* Floor, Ceiling, Obstacles, Scores */
+.floor,
+.ceiling {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: #ffffff;
+}
+
+.floor {
+    bottom: 0;
+}
+
+.ceiling {
+    top: 0;
+}
+
+.obstacle {
+    position: absolute;
+    width: 40px;
+    height: 150px;
+    background: linear-gradient(180deg, #ff0055, #ff00de);
+    /* Neon Gradient */
+    box-shadow: 0 0 15px rgba(255, 0, 222, 0.6);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Different color for middle floating obstacles */
+.obstacle.floating {
+    background: linear-gradient(180deg, #00ffff, #0055ff);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+}
+
+.shake {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.score-display {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #ffffff;
+    font-size: 20px;
+    z-index: 20;
+}
+
+/* --- Gravity Flip Effect CSS --- */
+/* Note: Adding !important to override the base color change, 
+   but 'boosting' takes precedence over the default gravity color flip. */
+.game-view.inverted {
+    background-color: #ffffff !important;
+}
+
+.game-view.inverted .floor,
+.game-view.inverted .ceiling,
+.game-view.inverted .obstacle {
+    background-color: #000000 !important;
+}
+
+.game-view.inverted #player-1 {
+    background-color: #0000ff !important;
+}
+
+.game-view.inverted #player-2 {
+    background-color: #ff0000 !important;
+}
+
+.game-view.inverted .score-display {
+    color: #000000 !important;
+}
+
+
+/* --- OVERLAY STYLES --- */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 101;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+#start-screen h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 7em;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+    text-shadow:
+        0 0 10px rgba(255, 0, 0, 0.8),
+        0 0 20px rgba(255, 0, 0, 0.5),
+        0 0 40px rgba(255, 0, 0, 0.3);
+    animation: pulseTitle 3s infinite alternate;
+}
+
+#start-screen p {
+    font-size: 1.5em;
+    opacity: 0.8;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+@keyframes pulseTitle {
+    0% {
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+        transform: scale(1);
+    }
+
+    100% {
+        text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+        transform: scale(1.02);
+    }
+}
+
+#mode-selector {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+/* Base Button Style */
+.mode-button,
+.settings-button,
+#restart-button,
+#start-button {
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Mode Buttons Specifics */
+.mode-button {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    border-color: #00ccff;
+    color: #00ccff;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.2);
+}
+
+.mode-button:hover {
+    background: #00ccff;
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 204, 255, 0.6);
+    transform: translateY(-5px);
+}
+
+/* Start Game Button (Big One) */
+#start-button {
+    padding: 20px 60px;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    border-color: #00ff66;
+    color: #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+}
+
+#start-button:hover {
+    background: #00ff66;
+    color: #000;
+    box-shadow: 0 0 40px rgba(0, 255, 102, 0.6);
+    transform: scale(1.05);
+}
+
+/* Settings Area Styles */
+#settings-area {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+    max-width: 600px;
+    width: 90%;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#control-settings {
+    border: 1px solid #444;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.key-input {
+    width: 120px;
+    height: 35px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #222;
+    color: #00ccff;
+    border: 1px solid #00ccff;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.key-input:hover {
+    background-color: #333;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+}
+
+.settings-button {
+    padding: 10px 25px;
+    margin-top: 10px;
+    font-size: 14px;
+    border-color: #aaa;
+    color: #aaa;
+}
+
+.settings-button:hover {
+    border-color: #fff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Restart Screen */
+#restart-screen h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5em;
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+}
+
+#restart-button {
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+#restart-button:hover {
+    background: #ff0000;
+    color: #fff;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+}
+
+.p2-settings {
+    display: block;
+}
+
+.single-player-mode .p2-settings {
+    display: none;
+}
+
+.single-player-mode #game-container-1 {
+    border-right: none;
+}

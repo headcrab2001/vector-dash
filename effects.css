@@ -1,0 +1,61 @@
+/* Ghost Trail Effect */
+.player-trail {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    /* Ignore collisions */
+    z-index: 9;
+    transition: opacity 0.5s, transform 0.5s;
+    opacity: 0.6;
+}
+
+/* Coin Sparkle Effect */
+.coin-sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #ffcc00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 20;
+    animation: sparkleAnim 0.8s ease-out forwards;
+}
+
+@keyframes sparkleAnim {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Floating Text (Score Popups) */
+.floating-text {
+    position: absolute;
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 21;
+    animation: floatUp 1s ease-out forwards;
+    text-shadow: 0 0 5px #000;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px) scale(1.2);
+        opacity: 0;
+    }
+}
